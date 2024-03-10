@@ -1,0 +1,48 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.inputGroup {
+  margin-bottom: 10px;
+}
+
+.inputGroup input {
+  width: calc(50% - 5px);
+  margin-right: 10px;
+  padding: 5px;
+  margin-block: 5px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.button-delete {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
+button:hover {
+  background-color: #0056b3;
+}

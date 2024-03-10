@@ -1,72 +1,81 @@
-// store/contactsSlice.js
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
-  async () => {
+  async (_, thunkAPI) => {
     try {
-      const response = await fetch(
-        'https://65ec8d110ddee626c9b080b4.mockapi.io/api/contacts'
-      );
+      const response = await fetch('https://65ec8d110ddee626c9b080b4.mockapi.io/api/contacts');
+      if (!response.ok) {
+        throw new Error('Failed to fetch contacts');
+      }
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Błąd podczas pobierania danych z API:', error);
-      throw error;
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async newContact => {
+  async (newContact, thunkAPI) => {
     try {
-      const response = await fetch(
-        'https://65ec8d110ddee626c9b080b4.mockapi.io/api/contacts',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newContact),
-        }
-      );
+      const response = await fetch('https://65ec8d110ddee626c9b080b4.mockapi.io/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newContact),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add contact');
+      }
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Błąd podczas dodawania kontaktu:', error);
-      throw error;
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContact',
+  async (contactId, thunkAPI) => {
+    try {
+      const response = await fetch(`https://65ec8d110ddee626c9b080b4.mockapi.io/api/contacts/${contactId}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete contact');
+      }
+      return contactId;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    contacts: [],
-    status: 'idle',
-    error: null,
+  initialState: [],
+  reducers: {
   },
-  reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(fetchContacts.pending, state => {
-        state.status = 'loading';
-      })
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.contacts = action.payload;
-      })
-      .addCase(fetchContacts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        return action.payload;
       })
       .addCase(addContact.fulfilled, (state, action) => {
-        state.contacts.push(action.payload);
+        state.push(action.payload);
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        return state.filter(contact => contact.id !== action.payload);
       });
   },
 });
 
-export const selectAllContacts = state => state.contacts.contacts;
+
+export const selectAllContacts = (state) => state.contacts;
+export const { } = contactsSlice.actions;
 
 export default contactsSlice.reducer;

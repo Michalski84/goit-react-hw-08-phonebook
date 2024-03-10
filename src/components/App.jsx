@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts, addContact, selectAllContacts } from '../store/contactsSlice';
+import { fetchContacts, addContact, selectAllContacts, deleteContact } from '../store/contactsSlice';
 import './App.css';
 
 function App() {
@@ -25,24 +25,29 @@ function App() {
     setFilter(e.target.value);
   };
 
+  const handleDeleteContact = (id) => {
+    dispatch(deleteContact(id));
+  };
+
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
-    <div className="container"> {/* Dodajemy klasę container */}
+    <div className="container">
       <h1>Phonebook</h1>
-      <form onSubmit={handleFormSubmit}>
-        <input className="input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" /> {/* Dodajemy klasę input */}
-        <input className="input" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" /> {/* Dodajemy klasę input */}
-        <button className="button" type="submit">Add Contact</button> {/* Dodajemy klasę button */}
+      <form className='inputGroup' onSubmit={handleFormSubmit}>
+        <input className="input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+        <input className="input" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" />
+        <button className="button" type="submit">Add Contact</button>
       </form>
-      <input className="input" type="text" value={filter} onChange={handleFilterChange} placeholder="Filter contacts" /> {/* Dodajemy klasę input */}
+      <input className="input" type="text" value={filter} onChange={handleFilterChange} placeholder="Filter contacts" />
       <h2>Contacts</h2>
-      <ul className="contacts-list"> {/* Dodajemy klasę contacts-list */}
+      <ul className="contacts-list">
         {filteredContacts.map((contact) => (
-          <li key={contact.id} className="contact-item"> {/* Dodajemy klasę contact-item */}
+          <li key={contact.id} className="contact-item">
             {contact.name} - {contact.phone}
+            <button className="button-delete" onClick={() => handleDeleteContact(contact.id)}>Delete</button>
           </li>
         ))}
       </ul>

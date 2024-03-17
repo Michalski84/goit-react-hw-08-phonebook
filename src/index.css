@@ -1,15 +1,111 @@
 @import-normalize; 
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 20px;
+  background-color: rgb(179, 171, 100);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+nav {
+  margin-bottom: 20px;
+}
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: olive; 
+}
+
+.active-link {
+  color: olive; 
+  border-bottom: 2px solid olive; 
+}
+
+nav h1 {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: #333;
+}
+
+nav h1 i {
+  margin-right: 10px;
+  color: olive; 
+}
+
+form {
+  background:rgb(134, 141, 93);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px; 
+  width: 100%; 
+  margin: auto; 
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type='text'],
+input[type='tel'],
+input[type='email'],
+input[type='password'] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: olive; 
+  color: khaki; 
+  padding: 10px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  display: block; 
+  margin-top: 10px; 
+}
+
+button:hover {
+  background-color: darkolivegreen; 
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: rgb(134, 141, 93);
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  max-width: 400px; 
+  width: 100%; 
+  margin: auto;
 }

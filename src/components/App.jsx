@@ -6,7 +6,6 @@ import ContactsPage from './ContactsPage';
 import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import { useSelector } from 'react-redux';
-import { ChakraProvider } from '@chakra-ui/react'
 
 const App = () => {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
